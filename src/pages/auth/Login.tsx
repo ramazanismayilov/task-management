@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../store/services/authApi";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../store/slices/authSlice";
+import { setCredentials } from "../../store/slices/auth.slice";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const [form, setForm] = useState({
     email: "",
@@ -22,15 +22,12 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
       const res = await login(form).unwrap();
 
-      dispatch(setCredentials(res)); 
+      dispatch(setCredentials(res));
 
-      navigate("/"); 
-    } catch (error: any) {
-      alert(error?.data?.message || "Email or password is wrong");
-    }
+      navigate("/");
+    
   };
 
   return (
@@ -43,7 +40,7 @@ const Login: React.FC = () => {
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
             <label className="text-sm font-medium text-gray-700">Email</label>
-            <input 
+            <input
               type="email"
               name="email"
               placeholder="you@example.com"
@@ -56,7 +53,7 @@ const Login: React.FC = () => {
           </div>
           <div>
             <label className="text-sm font-medium text-gray-700">Password</label>
-            <input 
+            <input
               type="password"
               name="password"
               placeholder="*******"
@@ -67,7 +64,7 @@ const Login: React.FC = () => {
               focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
             />
             <div className="text-right mt-1">
-              <Link 
+              <Link
                 to="/auth/forgot-password"
                 className="text-xs text-indigo-600 hover:underline"
               >
@@ -75,18 +72,17 @@ const Login: React.FC = () => {
               </Link>
             </div>
           </div>
-          <button 
+          <button
             type="submit"
-            disabled={isLoading}
             className="w-full py-2.5 font-medium bg-indigo-600 text-white rounded-lg 
             hover:bg-indigo-700 transition cursor-pointer disabled:opacity-70"
           >
-            {isLoading ? "Signing In..." : "Sign In"}
+            Sign In
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-5">
           Don't have an account?{" "}
-          <Link 
+          <Link
             to="/auth/register"
             className="text-indigo-600 font-medium hover:underline"
           >

@@ -5,13 +5,17 @@ import AppRoutes from './routes/index.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './store/store.ts'
+import Spinner from './components/common/Spinner.tsx'
+import { Toaster } from 'react-hot-toast'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-    <Provider store={store}>
-      <AppRoutes />
-    </Provider>
+      <Provider store={store}>
+        <AppRoutes />
+        <Spinner />
+        <Toaster position='top-center' />
+      </Provider>
     </BrowserRouter>
   </StrictMode>,
 )

@@ -18,10 +18,16 @@ export const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       const data = action.payload.data;
+      console.log(action);
+      
 
       state.userId = data.userId;
       state.accessToken = data.accessToken;
       state.refreshToken = data.refreshToken;
+
+      localStorage.setItem('userId', data.userId)
+      localStorage.setItem('accessToken', data.accessToken)
+      localStorage.setItem('refreshToken', data.refreshToken)
     },
 
     logout: (state) => {
