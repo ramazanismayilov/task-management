@@ -2,8 +2,8 @@ import { isPending, isFulfilled, isRejected, type Middleware } from "@reduxjs/to
 import { startSpinner, stopSpinner } from "../slices/spinner.slice";
 
 export const spinnerMiddleware: Middleware = () => (next) => (action) => {
-    if (isPending(action)) next(startSpinner());
-    if (isFulfilled(action) || isRejected(action)) next(stopSpinner());
+    if (isPending(action) && !action.type.includes("refreshToken")) next(startSpinner());
+    if ((isFulfilled(action) || isRejected(action)) && !action.type.includes("refreshToken")) next(stopSpinner());
 
     return next(action);
 };

@@ -1,0 +1,11 @@
+import * as Yup from "yup";
+
+export const loginSchema = Yup.object().shape({
+    email: Yup.string()
+        .email("Email is not in the correct format")
+        .required("Email cannot be empty"),
+    password: Yup.string()
+        .min(6, "Password must be at least 6 characters long")
+        .max(12, "Password can be a maximum of 12 characters")
+        .required("Password cannot be empty"),
+});

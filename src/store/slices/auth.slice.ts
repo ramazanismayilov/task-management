@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
-  userId: number | null;
-  accessToken: string | null;
-  refreshToken: string | null;
+  userId: number | null
+  accessToken: string | null
+  refreshToken: string | null
 }
 
 const initialState: AuthState = {
-  userId: null,
-  accessToken: null,
-  refreshToken: null,
+  userId: Number(localStorage.getItem("userId")),
+  accessToken: localStorage.getItem("accessToken"),
+  refreshToken: localStorage.getItem("refreshToken"),
 };
 
 export const authSlice = createSlice({
@@ -17,20 +17,22 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const data = action.payload.data;
-      console.log(action);
-      
+      const { userId, accessToken, refreshToken } = action.payload.data;
 
-      state.userId = data.userId;
-      state.accessToken = data.accessToken;
-      state.refreshToken = data.refreshToken;
+      localStorage.setItem("userId", String(userId));
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
 
-      localStorage.setItem('userId', data.userId)
-      localStorage.setItem('accessToken', data.accessToken)
-      localStorage.setItem('refreshToken', data.refreshToken)
+      state.userId = userId;
+      state.accessToken = accessToken;
+      state.refreshToken = refreshToken;
+
     },
+    logoutUser: (state) => {
+      localStorage.removeItem("userId");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
 
-    logout: (state) => {
       state.userId = null;
       state.accessToken = null;
       state.refreshToken = null;
@@ -38,5 +40,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

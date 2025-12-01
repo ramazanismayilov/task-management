@@ -1,27 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQueryWithReauth from "./baseQuery";
+import { endpoints } from "../../lib/config/endpoints";
 
 export const authApi = createApi({
     reducerPath: "authApi",
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3000/api',
-        credentials: "include",
-    }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (body) => ({
-                url: "/auth/login",
+                url: endpoints.AUTH.LOGIN,
                 method: "POST",
                 body,
             }),
-        }),
-        register: builder.mutation({
-            query: (body) => ({
-                url: "/auth/register",
-                method: "POST",
-                body,
-            }),
-        }),
-    }),
+        })
+    })
 });
 
 export const { useLoginMutation } = authApi;

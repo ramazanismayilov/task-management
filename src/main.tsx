@@ -8,6 +8,10 @@ import { store } from './store/store.ts'
 import Spinner from './components/common/Spinner.tsx'
 import { Toaster } from 'react-hot-toast'
 
+window.addEventListener("unhandledrejection", (event) => {
+  event.preventDefault();
+});
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
