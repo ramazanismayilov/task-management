@@ -12,8 +12,22 @@ export const authApi = createApi({
                 method: "POST",
                 body,
             }),
+        }),
+        regiser: builder.mutation({
+            query: (body) => ({
+                url: endpoints.AUTH.REGISTER,
+                method: "POST",
+                body,
+            }),
+        }),
+        verifyOtp: builder.mutation({
+            query: (body) => ({
+                url: endpoints.AUTH.VERIFYOTP,
+                method: "POST",
+                body,
+            }),
         })
     })
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegiserMutation } = authApi;

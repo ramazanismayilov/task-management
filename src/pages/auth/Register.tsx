@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useRegister } from "../../hooks/useRegister";
 
 const Register: React.FC = () => {
+    const formik = useRegister();
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
@@ -9,27 +12,42 @@ const Register: React.FC = () => {
                     <h1 className="text-3xl font-bold text-indigo-600">TaskMaster</h1>
                     <p className="text-gray-600 mt-1 text-sm">Create an account ✨</p>
                 </div>
-                <form className="space-y-5">
+                <form className="space-y-5" onSubmit={formik.handleSubmit}>
                     <div>
                         <label className="text-sm font-medium text-gray-700">Full Name</label>
-                        <input type="text" name="fullName" placeholder="Your full name" required
+                        <input value={formik.values.fullName} onChange={formik.handleChange} onBlur={formik.handleBlur} type="text" name="fullName" placeholder="Your full name"
                             className="w-full mt-1 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2
                             focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
+                        {formik.touched.fullName && formik.errors.fullName && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {String(formik.errors.fullName)}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" placeholder="you@example.com" required
+                        <input value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} type="email" name="email" placeholder="you@example.com" 
                             className="w-full mt-1 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2
                             focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
+                        {formik.touched.email && formik.errors.email && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {String(formik.errors.email)}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" name="password" placeholder="******" required
+                        <input value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} type="password" name="password" placeholder="******" 
                             className="w-full mt-1 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2
                             focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                         />
+                        {formik.touched.password && formik.errors.password && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {String(formik.errors.password)}
+                            </p>
+                        )}
                     </div>
                     <button type="submit" className="w-full py-2.5 font-medium bg-indigo-600 text-white 
                         rounded-lg hover:bg-indigo-700 transition">

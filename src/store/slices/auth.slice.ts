@@ -28,6 +28,16 @@ export const authSlice = createSlice({
       state.refreshToken = refreshToken;
 
     },
+    setRegisteredUser: (state, action) => {
+      const { userId } = action.payload.data;
+      localStorage.setItem("userId", String(userId));
+      state.userId = userId;
+    },
+    setVerifyOtp: (state, action) => {
+      const { userId } = action.payload.data;
+      localStorage.setItem("userId", String(userId));
+      state.userId = userId;
+    },
     logoutUser: (state) => {
       localStorage.removeItem("userId");
       localStorage.removeItem("accessToken");
