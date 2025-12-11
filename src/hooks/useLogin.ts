@@ -18,7 +18,7 @@ export function useLogin() {
     },
     validationSchema: loginSchema,
     onSubmit: async (values: any) => {
-      const res = await login(values);
+      const res = await login(values).unwrap();
       dispatch(setCredentials(res));
       navigate("/");
     },

@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface AuthState {
   userId: number | null
+  email: string | null
   accessToken: string | null
   refreshToken: string | null
 }
 
 const initialState: AuthState = {
   userId: Number(localStorage.getItem("userId")),
+  email: localStorage.getItem("email"),
   accessToken: localStorage.getItem("accessToken"),
   refreshToken: localStorage.getItem("refreshToken"),
 };
@@ -29,26 +31,33 @@ export const authSlice = createSlice({
 
     },
     setRegisteredUser: (state, action) => {
-      const { userId } = action.payload.data;
+      const { userId, email } = action.payload.data;
+
+      localStorage.setItem("email", email);
       localStorage.setItem("userId", String(userId));
+
       state.userId = userId;
     },
     setVerifyOtp: (state, action) => {
       const { userId } = action.payload.data;
+
       localStorage.setItem("userId", String(userId));
+
       state.userId = userId;
     },
     logoutUser: (state) => {
       localStorage.removeItem("userId");
+      localStorage.removeItem("email");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
 
       state.userId = null;
+      state.email = null;
       state.accessToken = null;
       state.refreshToken = null;
     },
   },
 });
 
-export const { setCredentials, logoutUser } = authSlice.actions;
+export const { setCredentials, setRegisteredUser, setVerifyOtp, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

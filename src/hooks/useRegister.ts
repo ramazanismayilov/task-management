@@ -1,15 +1,15 @@
 import { useFormik } from "formik";
 import { registerSchema } from "../lib/validation/auth.schema";
 import { useNavigate } from "react-router-dom";
-import { useRegiserMutation } from "../store/services/authApi";
+import { useRegisterMutation } from "../store/services/authApi";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../store/slices/auth.slice";
+import { setRegisteredUser } from "../store/slices/auth.slice";
 
 export function useRegister() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [register] = useRegiserMutation();
+    const [register] = useRegisterMutation();
 
     const formik = useFormik({
         initialValues: {
@@ -19,8 +19,8 @@ export function useRegister() {
         },
         validationSchema: registerSchema,
         onSubmit: async (values: any) => {
-            const res = await register(values);
-            dispatch(setCredentials(res));
+            const res = await register(values).unwrap();
+            dispatch(setRegisteredUser(res.data));
             navigate("/auth/email-verification");
         },
     });

@@ -50,7 +50,7 @@ const Register: React.FC = () => {
                         )}
                     </div>
                     <button type="submit" className="w-full py-2.5 font-medium bg-indigo-600 text-white 
-                        rounded-lg hover:bg-indigo-700 transition">
+                        rounded-lg hover:bg-indigo-700 transition cursor-pointer">
                         Create Account
                     </button>
                 </form>

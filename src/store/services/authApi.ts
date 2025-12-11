@@ -13,7 +13,7 @@ export const authApi = createApi({
                 body,
             }),
         }),
-        regiser: builder.mutation({
+        register: builder.mutation({
             query: (body) => ({
                 url: endpoints.AUTH.REGISTER,
                 method: "POST",
@@ -26,8 +26,15 @@ export const authApi = createApi({
                 method: "POST",
                 body,
             }),
+        }),
+        resendOtp: builder.mutation({
+            query: (body) => ({
+                url: endpoints.AUTH.RESENDOTP,
+                method: "POST",
+                body,
+            }),
         })
     })
 });
 
-export const { useLoginMutation, useRegiserMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useVerifyOtpMutation, useResendOtpMutation } = authApi;
