@@ -42,7 +42,7 @@ const Login: React.FC = () => {
               </Link>
             </div>
           </div>
-          <button type="submit" className="w-full py-2.5 font-medium bg-indigo-600 text-white rounded-lg 
+          <button type="submit" id="login-btn" className="w-full py-2.5 font-medium bg-indigo-600 text-white rounded-lg 
             hover:bg-indigo-700 transition cursor-pointer disabled:opacity-70" >
             Sign In
           </button>

@@ -18,9 +18,17 @@ const EmailVerification: React.FC = () => {
           </p>
         </div>
         <form onSubmit={formik.handleSubmit} className="space-y-6">
-          <Input.OTP length={6} size="large" onChange={(value) => formik.setFieldValue("otpCode", value)}
+          <Input.OTP
+            length={6}
+            size="large"
+            value={formik.values.otpCode}
+            onChange={(value) => {
+              formik.setFieldValue("otpCode", value);
+            }}
+            onBlur={() => formik.setFieldTouched("otpCode", true)}
             className="flex justify-center"
           />
+
           {formik.touched.otpCode && formik.errors.otpCode && (
             <p className="text-red-500 text-xs mt-1 text-center">
               {formik.errors.otpCode}

@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForgetPassword } from "../../hooks/useForgetPassword";
 
 const ForgotPassword: React.FC = () => {
+  const { formik } = useForgetPassword();
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
@@ -11,13 +14,19 @@ const ForgotPassword: React.FC = () => {
             Enter email to reset password 📩
           </p>
         </div>
-        <form className="space-y-5">
+        <form onSubmit={formik.handleSubmit} className="space-y-5">
           <div>
             <label className="text-sm font-medium text-gray-700">Email</label>
-            <input type="email" placeholder="you@example.com" required
+            <input type="email" name="email" placeholder="you@example.com"
+              value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur}
               className="w-full mt-1 px-4 py-2 rounded-lg border border-gray-300 
               focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
             />
+            {formik.touched.email && formik.errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {formik.errors.email}
+              </p>
+            )}
           </div>
           <button type="submit" className="w-full py-2.5 font-medium bg-indigo-600 text-white 
             rounded-lg hover:bg-indigo-700 transition">

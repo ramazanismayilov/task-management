@@ -17,10 +17,11 @@ export function useLogin() {
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: async (values: any) => {
+    onSubmit: async (values: any, { resetForm }) => {
       const res = await login(values).unwrap();
       dispatch(setCredentials(res));
       navigate("/");
+      resetForm()
     },
   });
 

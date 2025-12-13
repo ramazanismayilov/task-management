@@ -18,9 +18,10 @@ export function useRegister() {
             password: "",
         },
         validationSchema: registerSchema,
-        onSubmit: async (values: any) => {
+        onSubmit: async (values: any, { resetForm }) => {
             const res = await register(values).unwrap();
-            dispatch(setRegisteredUser(res.data));
+            dispatch(setRegisteredUser(res));
+            resetForm()
             navigate("/auth/email-verification");
         },
     });

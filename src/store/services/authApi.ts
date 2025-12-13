@@ -33,8 +33,15 @@ export const authApi = createApi({
                 method: "POST",
                 body,
             }),
+        }),
+        forgetPassword: builder.mutation({
+            query: (body) => ({
+                url: endpoints.AUTH.FORGETPASSWORD,
+                method: "POST",
+                body,
+            }),
         })
     })
 });
 
-export const { useLoginMutation, useRegisterMutation, useVerifyOtpMutation, useResendOtpMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useVerifyOtpMutation, useResendOtpMutation, useForgetPasswordMutation } = authApi;

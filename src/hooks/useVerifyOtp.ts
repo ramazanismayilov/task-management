@@ -19,10 +19,17 @@ export function useVerifyOtp() {
         },
         validationSchema: verifyOtpSchema,
         onSubmit: async (values) => {
-            const res = await verifyOtp({ email, otpCode: Number(values.otpCode) }).unwrap();
-            dispatch(setVerifyOtp({ data: res.data }));
+            if (!/^\d{6}$/.test(values.otpCode)) return;
+
+            const res = await verifyOtp({
+                email,
+                otpCode: Number(values.otpCode),
+            }).unwrap();
+
+            dispatch(setVerifyOtp(res));
             navigate("/auth/login");
         },
+
     });
 
     return { formik };
